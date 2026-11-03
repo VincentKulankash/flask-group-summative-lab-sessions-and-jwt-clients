@@ -213,11 +213,6 @@ def test_list_invalid_pagination_returns_400(alice, query):
     assert res.status_code == 400
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="app.py has no 400 error handler, so abort(400) returns Flask's "
-           "HTML page instead of {'error': ...}",
-)
 def test_list_invalid_pagination_returns_json_error(alice):
     res = alice.get("/diary-entries?page=0")
 

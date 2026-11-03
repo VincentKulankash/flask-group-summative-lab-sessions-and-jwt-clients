@@ -39,6 +39,11 @@ def create_app(config_class=Config):
     def not_found(error):
         return jsonify({"error": "Resource not found"}), 404
 
+    @app.errorhandler(400)
+    def bad_request(error):
+        # Grab the custom message from abort(400, description="...") if it exists
+        return jsonify({"error": getattr(error, "description", "Bad request")}), 400
+    
     @app.errorhandler(500)
     def internal_error(error):
         # Rollback the session in case of a database error
