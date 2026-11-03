@@ -26,8 +26,7 @@ diary_schema = DiaryEntrySchema()
 
 
 def format_errors(messages):
-    """Turn Marshmallow's errors into the agreed format: one readable message.
-    Example: {"title": ["Missing data for required field."]}
-    becomes:  "title: Missing data for required field."
-    """
-    return "; ".join(f"{field}: {' '.join(errs)}" for field, errs in messages.items())
+    """Format Marshmallow error dict into a single readable string."""
+    if isinstance(messages, dict):
+        return " ".join([f"{field}: {' '.join(errs)}" for field, errs in messages.items()])
+    return str(messages)

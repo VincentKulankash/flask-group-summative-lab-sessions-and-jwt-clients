@@ -13,7 +13,6 @@ from flask import Blueprint, request, jsonify
 
 
 # JohnB will fill this in
-auth_bp = Blueprint("auth_bp", __name__, url_prefix="/auth")
 
 from flask_login import (
     login_user,
