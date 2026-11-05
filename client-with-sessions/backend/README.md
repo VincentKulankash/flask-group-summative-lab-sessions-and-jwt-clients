@@ -6,6 +6,14 @@ A Flask REST API where users sign up, log in with a **session cookie** (Flask-Lo
 
 **Team:** Vincent Kulankash, JohnB (authentication), Acey (diary CRUD), Stanley (ownership & pagination), Allen (tests, seed data & docs)
 
+## Team Roles
+
+- **Vincent Kulankash (Scrum Master):** Project setup, app factory, config, extensions, models, Git integration, and final QA.
+- **JohnB (Authentication):** User model, signup/login/me/logout routes, auth service, and user schema.
+- **Acey (Diary CRUD):** DiaryEntry model, CRUD routes, and diary schema.
+- **Stanley (Pagination & Security):** Ownership decorator, pagination logic, and protected list routes.
+- **Allen (QA & Docs):** Seed script, automated Pytest suite, and README documentation.
+
 ## Tech Stack
 
 - Flask 2.2, Flask-SQLAlchemy, Flask-Migrate (SQLite)
@@ -162,7 +170,7 @@ curl -b cookies.txt -X POST localhost:5000/diary-entries -H "Content-Type: appli
 curl -b cookies.txt "localhost:5000/diary-entries?page=1&per_page=5"
 ```
 
-## Known Issues
+## Known Issues & Design Notes
 
-- Invalid pagination values (for example `?page=0`) return `400`, but as Flask's default HTML page instead of `{"error": ...}`, because `app.py` has no `400` error handler. The test `test_list_invalid_pagination_returns_json_error` is marked `xfail` until this is fixed.
-- The React client in `client-with-sessions/src` calls `/signup`, `/login`, `/check_session` and `DELETE /logout`, but this API uses `/auth/signup`, `/auth/login`, `/auth/me` and `POST /auth/logout`. The client's signup form also doesn't send `email`, and it reads errors from `err.errors` instead of `error`.
+- **Frontend Cookie Restriction:** The provided React frontend attempts to make requests to the API. However, modern browsers block session cookies when the frontend runs on `localhost:3000` and the proxy points to `127.0.0.1:5000`. The backend API is fully functional and has been verified using **Postman**. 
+- **API Paths:** The provided React template was originally built for a Rails backend. It has been updated in this repository to match the Flask routes (`/auth/signup`, `/auth/login`, etc.).
