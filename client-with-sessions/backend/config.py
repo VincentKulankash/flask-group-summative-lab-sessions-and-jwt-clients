@@ -11,7 +11,7 @@ class Config:
 
     #Session cookie settings (Flask login uses these)
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SAMESITE = "None"
     SESSION_COOKIE_SECURE = False   #Set to true in production
 
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
